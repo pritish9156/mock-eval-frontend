@@ -1,5 +1,14 @@
 import React from "react";
 import "./Dashboard.css";
+import { 
+  FaUsers, 
+  FaLayerGroup, 
+  FaCode, 
+  FaChartBar,
+  FaClipboardList,
+  FaTasks,
+  FaFileAlt
+} from "react-icons/fa";
 
 const Dashboard = () => {
   return (
@@ -7,20 +16,48 @@ const Dashboard = () => {
 
       {/* Sidebar */}
       <div className="sidebar">
-        <h2>MockEval</h2>
 
-        <ul>
-          <li>Dashboard</li>
-          <li>Users</li>
-          <li>Batch</li>
-          <li>Technology</li>
-          <li>Assignments</li>
-          <li>Evaluations</li>
-          <li>Reports</li>
-        </ul>
+        {/* 🔥 TOP SECTION */}
+        <div className="sidebar-top">
+          <h2>MockEval</h2>
+
+          <ul>
+            <li className="active"><FaChartBar /> Dashboard</li>
+            <li><FaUsers /> Users</li>
+            <li><FaLayerGroup /> Batch</li>
+            <li><FaCode /> Technology</li>
+            <li><FaClipboardList /> Assignments</li>
+            <li><FaTasks /> Evaluations</li>
+            <li><FaFileAlt /> Reports</li>
+          </ul>
+        </div>
+
+        {/* 🔥 BOTTOM SECTION */}
+        <div className="sidebar-bottom">
+
+          <div className="profile">
+            <div className="avatar">A</div>
+            <div>
+              <p className="name">Admin</p>
+              <span className="role">ADMIN</span>
+            </div>
+          </div>
+
+          <button 
+            className="logout-btn"
+            onClick={() => {
+              localStorage.removeItem("token");
+              window.location.reload();
+            }}
+          >
+            Logout
+          </button>
+
+        </div>
+
       </div>
 
-      {/* Main Content */}
+      {/* Main */}
       <div className="main">
 
         <div className="topbar">
