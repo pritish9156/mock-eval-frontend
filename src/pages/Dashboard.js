@@ -1,4 +1,5 @@
 import React from "react";
+import { Link, Outlet, useLocation } from "react-router-dom";
 import "./Dashboard.css";
 import { 
   FaUsers, 
@@ -11,6 +12,8 @@ import {
 } from "react-icons/fa";
 
 const Dashboard = () => {
+    const location = useLocation(); 
+
   return (
     <div className="dashboard">
 
@@ -22,13 +25,33 @@ const Dashboard = () => {
           <h2>MockEval</h2>
 
           <ul>
-            <li className="active"><FaChartBar /> Dashboard</li>
-            <li><FaUsers /> Users</li>
-            <li><FaLayerGroup /> Batch</li>
-            <li><FaCode /> Technology</li>
-            <li><FaClipboardList /> Assignments</li>
-            <li><FaTasks /> Evaluations</li>
-            <li><FaFileAlt /> Reports</li>
+            <li className={location.pathname === "/" ? "active" : ""}>
+                <Link to="/"><FaChartBar /> Dashboard</Link>
+            </li>
+
+            <li className={location.pathname === "/users" ? "active" : ""}>
+                <Link to="/users"><FaUsers /> Users</Link>
+            </li>
+
+            <li className={location.pathname === "/batch" ? "active" : ""}>
+                <Link to="/batch"><FaLayerGroup /> Batch</Link>
+            </li>
+
+            <li className={location.pathname === "/technology" ? "active" : ""}>
+                <Link to="/technology"><FaCode /> Technology</Link>
+            </li>
+
+            <li className={location.pathname === "/assignments" ? "active" : ""}>
+                <Link to="/assignments"><FaClipboardList /> Assignments</Link>
+            </li>
+
+            <li className={location.pathname === "/evaluations" ? "active" : ""}>
+                <Link to="/evaluations"><FaTasks /> Evaluations</Link>
+            </li>
+
+            <li className={location.pathname === "/reports" ? "active" : ""}>
+                <Link to="/reports"><FaFileAlt /> Reports</Link>
+            </li>
           </ul>
         </div>
 
@@ -64,24 +87,28 @@ const Dashboard = () => {
           <h3>Dashboard</h3>
         </div>
 
-        <div className="cards">
+        {location.pathname === "/" ? (
+            <div className="cards">
 
-          <div className="card">
-            <h4>Total Users</h4>
-            <p>120</p>
-          </div>
+                <div className="card">
+                <h4>Total Users</h4>
+                <p>120</p>
+                </div>
 
-          <div className="card">
-            <h4>Evaluations</h4>
-            <p>75</p>
-          </div>
+                <div className="card">
+                <h4>Evaluations</h4>
+                <p>75</p>
+                </div>
 
-          <div className="card">
-            <h4>Batches</h4>
-            <p>8</p>
-          </div>
+                <div className="card">
+                <h4>Batches</h4>
+                <p>8</p>
+                </div>
 
-        </div>
+            </div>
+            ) : (
+            <Outlet />
+        )}
 
       </div>
 

@@ -3,12 +3,14 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import Particles from "react-tsparticles";
+import { useNavigate } from "react-router-dom";
 import "./Login.css";
 
 const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -20,12 +22,17 @@ const Login = () => {
       });
 
       localStorage.setItem("token", res.data.token);
-      alert("Login Successful 🚀");
+
+      window.location.reload();
+
+      // 🔥 REDIRECT HERE
+      navigate("/");
 
     } catch {
       alert("Invalid Credentials ❌");
     }
   };
+
 
   // 🔥 Smooth mouse glow (fixed)
   useEffect(() => {
