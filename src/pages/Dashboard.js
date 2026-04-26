@@ -1,5 +1,5 @@
-import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import "./Dashboard.css";
 import { 
   FaUsers, 
@@ -12,7 +12,35 @@ import {
 } from "react-icons/fa";
 
 const Dashboard = () => {
+
+    const [users, setUsers] = useState(0);
+    const [batches, setBatches] = useState(0);
+    const [evaluations, setEvaluations] = useState(0);
     const location = useLocation(); 
+
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        const headers = {
+            Authorization: `Bearer ${token}`
+        };
+
+        // Users
+        fetch("http://localhost:8080/users", { headers })
+            .then(res => res.json())
+            .then(data => setUsers(data.length));
+
+        // Batches
+        fetch("http://localhost:8080/batch", { headers })
+            .then(res => res.json())
+            .then(data => setBatches(data.length));
+
+        // Evaluations
+        fetch("http://localhost:8080/evaluations", { headers })
+            .then(res => res.json())
+            .then(data => setEvaluations(data.length));
+
+    }, []);
 
   return (
     <div className="dashboard">
@@ -92,17 +120,17 @@ const Dashboard = () => {
 
                 <div className="card">
                 <h4>Total Users</h4>
-                <p>120</p>
+                <p>{users}</p>
                 </div>
 
                 <div className="card">
                 <h4>Evaluations</h4>
-                <p>75</p>
+                <p>{evaluations}</p>
                 </div>
 
                 <div className="card">
                 <h4>Batches</h4>
-                <p>8</p>
+                <p>{batches}</p>
                 </div>
 
             </div>
