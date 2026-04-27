@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback, useMemo } from "react";
 import "./Users.css";
 
 const Users = () => {
@@ -11,21 +11,20 @@ const Users = () => {
 
   const token = localStorage.getItem("token");
 
-  const headers = {
-    "Content-Type": "application/json",
+  const headers = useMemo(() => ({
     Authorization: `Bearer ${token}`
-  };
+  }), [token]);
 
   // 🔥 FETCH USERS
-  const fetchUsers = () => {
-    fetch("http://localhost:8080/users", { headers })
+  const fetchUsers = useCallback(() => {
+  fetch("http://localhost:8080/users", { headers })
       .then(res => res.json())
       .then(data => setUsers(data));
-  };
+  }, [headers]);
 
   useEffect(() => {
     fetchUsers();
-  }, []);
+  }, [fetchUsers]);
 
   // 🔥 ADD USER
   const addUser = (e) => {
@@ -45,11 +44,16 @@ const Users = () => {
   };
 
   // 🔥 DELETE USER
-  const deleteUser = (id) => {
-    fetch(`http://localhost:8080/users/${id}`, {
-      method: "DELETE",
+  const deactivateUser = (id) => {
+    fetch(`http://localhost:8080/users/deactivate/${id}`, {
+      method: "PUT",
       headers
-    }).then(fetchUsers);
+    })
+      .then(res => res.text())
+      .then(msg => {
+        alert(msg);
+        fetchUsers();
+      });
   };
 
   return (
@@ -91,7 +95,7 @@ const Users = () => {
               <td>{user.email}</td>
               <td>{user.role}</td>
               <td>
-                <button onClick={() => deleteUser(user.id)}>Delete</button>
+                <button onClick={() => deactivateUser(user.id)}>Deactivate</button>
               </td>
             </tr>
           ))}
