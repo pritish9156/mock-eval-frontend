@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useCallback, useMemo } from "react";
+import { toast } from "react-toastify";
 import "./Users.css";
 
 const Users = () => {
@@ -12,6 +13,7 @@ const Users = () => {
   const token = localStorage.getItem("token");
 
   const headers = useMemo(() => ({
+    "Content-Type": "application/json", // 🔥 IMPORTANT FIX
     Authorization: `Bearer ${token}`
   }), [token]);
 
@@ -30,16 +32,35 @@ const Users = () => {
   const addUser = (e) => {
     e.preventDefault();
 
+    // 🔥 VALIDATION
+    if (!name.trim() || !email.trim() || !password.trim()) {
+      toast.error("All fields are required ❌");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      toast.error("Enter valid email ❌");
+      return;
+    }
+
     fetch("http://localhost:8080/users", {
       method: "POST",
       headers,
       body: JSON.stringify({ name, email, password, role })
     })
+      .then(res => {
+        if (!res.ok) throw new Error();
+        return res.json();
+      })
       .then(() => {
+        toast.success("User created successfully 🚀");
         fetchUsers();
         setName("");
         setEmail("");
         setPassword("");
+      })
+      .catch(() => {
+        toast.error("Failed to create user ❌");
       });
   };
 
@@ -50,9 +71,12 @@ const Users = () => {
       headers
     })
       .then(res => res.text())
-      .then(msg => {
-        alert(msg);
+      .then(() => {
+        toast.success("User deactivated ⚡");
         fetchUsers();
+      })
+      .catch(() => {
+        toast.error("Failed to deactivate ❌");
       });
   };
 
@@ -63,9 +87,9 @@ const Users = () => {
 
       {/* ADD USER FORM */}
       <form onSubmit={addUser} className="user-form">
-        <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-        <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-        <input placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
+        <input placeholder="Name" value={name} required onChange={e => setName(e.target.value)} />
+        <input placeholder="Email" value={email} required onChange={e => setEmail(e.target.value)} />
+        <input placeholder="Password" value={password} required onChange={e => setPassword(e.target.value)} />
 
         <select value={role} onChange={e => setRole(e.target.value)}>
           <option>ADMIN</option>

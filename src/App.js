@@ -5,6 +5,8 @@ import Users from "./pages/Users";
 import Batch from "./pages/Batch";
 import Technology from "./pages/Technology";
 import Assignments from "./pages/Assignments";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Evaluations from "./pages/Evaluations";
 import Reports from "./pages/Reports";
 
@@ -13,6 +15,12 @@ function App() {
 
   return (
     <BrowserRouter>
+    <ToastContainer
+    position="top-right"
+    autoClose={3000}
+    theme="dark"
+    closeButton={false} // 🔥 FIX
+    />
       {token ? (
         <Routes>
           <Route path="/" element={<Dashboard />}>
