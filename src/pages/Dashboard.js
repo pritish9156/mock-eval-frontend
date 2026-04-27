@@ -19,28 +19,36 @@ const Dashboard = () => {
     const location = useLocation(); 
 
     useEffect(() => {
-        const token = localStorage.getItem("token");
+  const token = localStorage.getItem("token");
 
-        const headers = {
-            Authorization: `Bearer ${token}`
-        };
+  const headers = {
+    Authorization: `Bearer ${token}`
+  };
 
-        // Users
-        fetch("http://localhost:8080/users", { headers })
-            .then(res => res.json())
-            .then(data => setUsers(data.length));
+  // 🔥 COMMON FETCH HANDLER
+  const safeFetch = (url, setter) => {
+      fetch(url, { headers })
+        .then(res => {
+          if (!res.ok) {
+            console.log(`${url} blocked ❌`);
+            return null;
+          }
+          return res.json();
+        })
+        .then(data => {
+          if (data) {
+            setter(data.length); // ✅ set count
+          }
+        })
+        .catch(err => console.log(err));
+    };
 
-        // Batches
-        fetch("http://localhost:8080/batch", { headers })
-            .then(res => res.json())
-            .then(data => setBatches(data.length));
+    // 🔥 CALL APIS
+    safeFetch("http://localhost:8080/users", setUsers);
+    safeFetch("http://localhost:8080/batch", setBatches);
+    safeFetch("http://localhost:8080/evaluations", setEvaluations);
 
-        // Evaluations
-        fetch("http://localhost:8080/evaluations", { headers })
-            .then(res => res.json())
-            .then(data => setEvaluations(data.length));
-
-    }, []);
+  }, []);
 
   return (
     <div className="dashboard">
@@ -58,7 +66,7 @@ const Dashboard = () => {
             </li>
 
             <li className={location.pathname === "/users" ? "active" : ""}>
-                <Link to="/users"><FaUsers /> Users</Link>
+                <Link to="/users"><FaUsers /> Evaluator Management</Link>
             </li>
 
             <li className={location.pathname === "/batch" ? "active" : ""}>
