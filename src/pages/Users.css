@@ -1,0 +1,41 @@
+.users-container {
+  color: white;
+}
+
+.user-form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.user-form input, 
+.user-form select {
+  padding: 8px;
+  border-radius: 6px;
+  border: none;
+}
+
+.user-form button {
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+  border: none;
+  padding: 8px 12px;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+table {
+  width: 100%;
+  background: rgba(30, 41, 59, 0.6);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+
+tr:hover {
+  background: rgba(59,130,246,0.2);
+}
