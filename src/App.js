@@ -9,6 +9,8 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Evaluations from "./pages/Evaluations";
 import Reports from "./pages/Reports";
+import Rounds from "./pages/Rounds";
+import Participants from "./pages/Participants";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -27,6 +29,8 @@ function App() {
             <Route path="users" element={<Users />} />
             <Route path="batch" element={<Batch />} />
             <Route path="technology" element={<Technology />} />
+            <Route path="participants" element={<Participants />} />
+            <Route path="rounds" element={<Rounds />} />
             <Route path="assignments" element={<Assignments />} />
             <Route path="evaluations" element={<Evaluations />} />
             <Route path="reports" element={<Reports />} />

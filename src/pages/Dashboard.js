@@ -8,7 +8,9 @@ import {
   FaChartBar,
   FaClipboardList,
   FaTasks,
-  FaFileAlt
+  FaFileAlt,
+  FaUserFriends,
+  FaStopwatch
 } from "react-icons/fa";
 
 const Dashboard = () => {
@@ -75,6 +77,14 @@ const Dashboard = () => {
 
             <li className={location.pathname === "/technology" ? "active" : ""}>
                 <Link to="/technology"><FaCode /> Technology</Link>
+            </li>
+
+            <li className={location.pathname === "/participants" ? "active" : ""}>
+                <Link to="/participants"><FaUserFriends />Participants</Link>
+            </li>
+
+            <li className={location.pathname === "/rounds" ? "active" : ""}>
+                <Link to="/rounds"><FaStopwatch /> Rounds</Link>
             </li>
 
             <li className={location.pathname === "/assignments" ? "active" : ""}>

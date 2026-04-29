@@ -16,6 +16,7 @@
     "react-parallax-tilt": "^1.7.324",
     "react-router-dom": "^7.14.2",
     "react-scripts": "5.0.1",
+    "react-toastify": "^11.1.0",
     "react-tsparticles": "^2.12.2",
     "tsparticles": "^3.9.1",
     "web-vitals": "^2.1.4"
