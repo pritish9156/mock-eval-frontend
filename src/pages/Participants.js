@@ -70,23 +70,26 @@ const Participants = () => {
       body: JSON.stringify({
         name,
         email,
-        batch: { id: Number(editData.batch?.id) },
-        technology: { id: Number(editData.technology?.id) }
+        batch: { id: Number(batchId) },
+        technology: { id: Number(technologyId) }
       })
     })
       .then(async (res) => {
-        if (!res.ok) throw new Error();
-        return true;
-      })
-      .then(() => {
-        toast.success("Participant added 🚀");
-        fetchParticipants();
-        setName("");
-        setEmail("");
-        setBatchId("");
-        setTechnologyId("");
-      })
-      .catch(() => toast.error("Failed to add ❌"));
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Participant added 🚀");
+      fetchParticipants();
+      setName("");
+      setEmail("");
+      setBatchId("");
+      setTechnologyId("");
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // 🔥 EDIT OPEN
@@ -114,15 +117,18 @@ const Participants = () => {
       })
     })
       .then(async (res) => {
-        if (!res.ok) throw new Error();
-        return true;
-      })
-      .then(() => {
-        toast.success("Updated successfully ✅");
-        setShowModal(false);
-        fetchParticipants();
-      })
-      .catch(() => toast.error("Update failed ❌"));
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Update failed ❌");
+      }
+
+      toast.success("Updated successfully ✅");
+      setShowModal(false);
+      fetchParticipants();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // 🔥 DEACTIVATE
@@ -132,15 +138,18 @@ const Participants = () => {
       headers
     })
       .then(async (res) => {
-        if (!res.ok) throw new Error();
-        return true;
-      })
-      .then(() => {
-        toast.success("Deactivated ⚡");
-        setConfirmOpen(false);
-        fetchParticipants();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Deactivated ⚡");
+      setConfirmOpen(false);
+      fetchParticipants();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // 🔍 SEARCH

@@ -28,7 +28,7 @@ const Batch = () => {
     fetch("http://localhost:8080/batch", { headers })
       .then(handleResponse)
       .then(data => setBatches(data || []))
-      .catch(() => toast.error("Failed to load ❌"));
+      .catch((err) => toast.error(err.message || "Failed to load ❌"));
   }, [headers]);
 
   useEffect(() => {
@@ -49,15 +49,21 @@ const Batch = () => {
       headers,
       body: JSON.stringify({ name, startDate, endDate })
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        toast.success("Batch created 🚀");
-        fetchBatch();
-        setName("");
-        setStartDate("");
-        setEndDate("");
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Batch created 🚀");
+      fetchBatch();
+      setName("");
+      setStartDate("");
+      setEndDate("");
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // EDIT OPEN
@@ -74,13 +80,19 @@ const Batch = () => {
       headers,
       body: JSON.stringify(editData)
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        toast.success("Updated ✅");
-        setEditData(null);
-        fetchBatch();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Updated ✅");
+      setEditData(null);
+      fetchBatch();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // DEACTIVATE
@@ -89,12 +101,18 @@ const Batch = () => {
       method: "PUT",
       headers
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        toast.success("Deactivated ⚡");
-        fetchBatch();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Deactivated ⚡");
+      fetchBatch();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   return (

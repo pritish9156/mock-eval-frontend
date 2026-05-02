@@ -1,0 +1,103 @@
+.admin-filters {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.admin-filters input,
+.admin-filters select {
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #cbd5f5;
+  min-width: 160px;
+}
+
+/* 🔥 IMPORTANT FIX */
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.admin-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+/* FEEDBACK */
+.feedback-cell {
+  max-width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pagination-container {
+  margin-top: 20px;
+  padding-bottom: 20px; /* 🔥 prevents cut-off */
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.pagination-container button {
+  padding: 6px 12px;
+  border-radius: 6px;
+  background: #1e293b;
+  color: white;
+  border: none;
+}
+
+.pagination-container .active-page {
+  background: #4f46e5;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+  flex-wrap: wrap; /* optional for responsiveness */
+}
+
+.pagination button {
+  min-width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+
+  background: #1e293b;
+  color: white;
+
+  transition: 0.3s;
+}
+
+/* ACTIVE BUTTON */
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pagination button {
+  background: #1e293b;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.pagination button:hover {
+  background: #4f46e5;
+}
+
+.pagination button.active {
+  background: linear-gradient(135deg, #3b82f6, #9333ea);
+}

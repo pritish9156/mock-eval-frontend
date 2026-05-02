@@ -1,5 +1,5 @@
-import { Link, Outlet, useLocation } from "react-router-dom";
-import React, { useEffect, useState } from "react";
+import { Link, Outlet, useLocation, Navigate } from "react-router-dom";
+import AdminDashboard from "./AdminDashboard";
 import "./Dashboard.css";
 import { 
   FaUsers, 
@@ -15,42 +15,38 @@ import {
 
 const Dashboard = () => {
 
-    const [users, setUsers] = useState(0);
-    const [batches, setBatches] = useState(0);
-    const [evaluations, setEvaluations] = useState(0);
-    const location = useLocation(); 
+    const email = localStorage.getItem("email");
 
-    useEffect(() => {
-  const token = localStorage.getItem("token");
+    const location = useLocation();
+    const role = localStorage.getItem("role"); // 🔥 IMPORTANT
 
-  const headers = {
-    Authorization: `Bearer ${token}`
-  };
+    // useEffect(() => {
+    //   // const token = localStorage.getItem("token");
 
-  // 🔥 COMMON FETCH HANDLER
-  const safeFetch = (url, setter) => {
-      fetch(url, { headers })
-        .then(res => {
-          if (!res.ok) {
-            console.log(`${url} blocked ❌`);
-            return null;
-          }
-          return res.json();
-        })
-        .then(data => {
-          if (data) {
-            setter(data.length); // ✅ set count
-          }
-        })
-        .catch(err => console.log(err));
-    };
+    //   // const headers = {
+    //   //   Authorization: `Bearer ${token}`
+    //   // };
 
-    // 🔥 CALL APIS
-    safeFetch("http://localhost:8080/users", setUsers);
-    safeFetch("http://localhost:8080/batch", setBatches);
-    safeFetch("http://localhost:8080/evaluations", setEvaluations);
+    //   // const safeFetch = (url, setter) => {
+    //   //   fetch(url, { headers })
+    //   //     .then(res => {
+    //   //       if (!res.ok) return null;
+    //   //       return res.json();
+    //   //     })
+    //   //     .then(data => {
+    //   //       if (data) setter(data.length);
+    //   //     })
+    //   //     .catch(err => console.log(err));
+    //   // };
 
-  }, []);
+    //   // 🔥 Only admin should see these stats
+    //   // if (role === "ADMIN") {
+    //   //   safeFetch("http://localhost:8080/users", setUsers);
+    //   //   safeFetch("http://localhost:8080/batch", setBatches);
+    //   //   safeFetch("http://localhost:8080/evaluation", setEvaluations);
+    //   // }
+
+    // }, [role]);
 
   return (
     <div className="dashboard">
@@ -58,65 +54,90 @@ const Dashboard = () => {
       {/* Sidebar */}
       <div className="sidebar">
 
-        {/* 🔥 TOP SECTION */}
         <div className="sidebar-top">
           <h2>MockEval</h2>
 
           <ul>
-            <li className={location.pathname === "/" ? "active" : ""}>
-                <Link to="/"><FaChartBar /> Dashboard</Link>
-            </li>
 
-            <li className={location.pathname === "/users" ? "active" : ""}>
-                <Link to="/users"><FaUsers /> Evaluator Management</Link>
-            </li>
+            {/* 🔥 ADMIN ONLY */}
+            {role === "ADMIN" && (
+              <>
 
-            <li className={location.pathname === "/batch" ? "active" : ""}>
-                <Link to="/batch"><FaLayerGroup /> Batch</Link>
-            </li>
+                  {/* DASHBOARD */}
+                <li className={location.pathname === "/admin-dashboard" ? "active" : ""}>
+                    <Link to="/admin-dashboard"><FaChartBar /> Dashboard</Link>
+                </li>
 
-            <li className={location.pathname === "/technology" ? "active" : ""}>
-                <Link to="/technology"><FaCode /> Technology</Link>
-            </li>
+                <li className={location.pathname === "/users" ? "active" : ""}>
+                    <Link to="/users"><FaUsers /> Evaluators</Link>
+                </li>
 
-            <li className={location.pathname === "/participants" ? "active" : ""}>
-                <Link to="/participants"><FaUserFriends />Participants</Link>
-            </li>
+                <li className={location.pathname === "/batch" ? "active" : ""}>
+                    <Link to="/batch"><FaLayerGroup /> Batch</Link>
+                </li>
 
-            <li className={location.pathname === "/rounds" ? "active" : ""}>
-                <Link to="/rounds"><FaStopwatch /> Rounds</Link>
-            </li>
+                <li className={location.pathname === "/technology" ? "active" : ""}>
+                    <Link to="/technology"><FaCode /> Technology</Link>
+                </li>
 
-            <li className={location.pathname === "/assignments" ? "active" : ""}>
-                <Link to="/assignments"><FaClipboardList /> Assignments</Link>
-            </li>
+                <li className={location.pathname === "/participants" ? "active" : ""}>
+                    <Link to="/participants"><FaUserFriends />Participants</Link>
+                </li>
 
-            <li className={location.pathname === "/evaluations" ? "active" : ""}>
-                <Link to="/evaluations"><FaTasks /> Evaluations</Link>
-            </li>
+                <li className={location.pathname === "/rounds" ? "active" : ""}>
+                    <Link to="/rounds"><FaStopwatch /> Rounds</Link>
+                </li>
 
-            <li className={location.pathname === "/reports" ? "active" : ""}>
-                <Link to="/reports"><FaFileAlt /> Reports</Link>
-            </li>
+                <li className={location.pathname === "/assignments" ? "active" : ""}>
+                    <Link to="/assignments"><FaClipboardList /> Assignments</Link>
+                </li>
+
+                <li className={location.pathname === "/evaluations" ? "active" : ""}>
+                  <Link to="/evaluations"><FaTasks /> Evaluations</Link>
+                </li>
+
+                <li className={location.pathname === "/reports" ? "active" : ""}>
+                    <Link to="/reports"><FaFileAlt /> Reports</Link>
+                </li>
+              </>
+            )}
+
+            {/* 🔥 EVALUATOR ONLY */}
+            {role === "EVALUATOR" && (
+              <>
+                <li className={location.pathname === "/my-evaluations" ? "active" : ""}>
+                    <Link to="/my-evaluations"><FaTasks /> My Evaluations</Link>
+                </li>
+
+                <li className={location.pathname === "/my-evaluation-history" ? "active" : ""}>
+                    <Link to="/my-evaluation-history"><FaFileAlt /> Evaluation History</Link>
+                </li>
+              </>
+            )}
+
           </ul>
         </div>
 
-        {/* 🔥 BOTTOM SECTION */}
+        {/* Bottom */}
         <div className="sidebar-bottom">
 
           <div className="profile">
-            <div className="avatar">A</div>
+            <div className="avatar">
+              {role === "ADMIN" ? "A" : "E"}
+            </div>
             <div>
-              <p className="name">Admin</p>
-              <span className="role">ADMIN</span>
+              <p className="name">
+                {email ? email.split("@")[0] : "User"}
+              </p>
+              <span className="role">{role}</span>
             </div>
           </div>
 
           <button 
             className="logout-btn"
             onClick={() => {
-              localStorage.removeItem("token");
-              window.location.reload();
+              localStorage.clear(); // 🔥 IMPORTANT FIX
+              window.location.href = "/login";
             }}
           >
             Logout
@@ -130,29 +151,19 @@ const Dashboard = () => {
       <div className="main">
 
         <div className="topbar">
-          <h3>Dashboard</h3>
+          <h3>
+            {role === "ADMIN" ? "Dashboard" : "My Evaluations"}
+          </h3>
         </div>
 
-        {location.pathname === "/" ? (
-            <div className="cards">
+        {/* 🔥 EVALUATOR AUTO REDIRECT */}
+        {role === "EVALUATOR" && location.pathname === "/" && (
+          <Navigate to="/my-evaluations" />
+        )}
 
-                <div className="card">
-                <h4>Total Users</h4>
-                <p>{users}</p>
-                </div>
-
-                <div className="card">
-                <h4>Evaluations</h4>
-                <p>{evaluations}</p>
-                </div>
-
-                <div className="card">
-                <h4>Batches</h4>
-                <p>{batches}</p>
-                </div>
-
-            </div>
-            ) : (
+        {location.pathname === "/" && role === "ADMIN" ? (
+            <AdminDashboard />
+        ) : (
             <Outlet />
         )}
 

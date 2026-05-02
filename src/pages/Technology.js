@@ -46,13 +46,23 @@ const Technology = () => {
       headers,
       body: JSON.stringify({ name })
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        toast.success("Added 🚀");
-        setName("");
-        fetchTechs();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+
+      let data = null;
+
+      try {
+        data = await res.json(); // ✅ read backend message
+      } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success(data?.message || "Added 🚀");
+      setName("");
+      fetchTechs();
+    })
+    .catch((err) => toast.error(err.message || "Failed ❌"));
   };
 
   // EDIT
@@ -81,12 +91,22 @@ const Technology = () => {
       method: "PUT",
       headers
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        toast.success("Deactivated ⚡");
-        fetchTechs();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+
+      let data = null;
+
+      try {
+        data = await res.json();
+      } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success(data?.message || "Deactivated ⚡");
+      fetchTechs();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   return (

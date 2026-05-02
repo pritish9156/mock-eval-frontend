@@ -1,0 +1,15 @@
+.user-form-select {
+    padding: 8px;
+    border-radius: 6px;
+    border: none;
+    width: 400px;
+    height: 37px;
+    margin-top: 19px;
+}
+
+.user-form-btn {
+    padding: 10px 15px;
+    margin-top: 20px;
+    margin-bottom: 15px;
+    width: 400px;
+}

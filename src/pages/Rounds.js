@@ -74,19 +74,22 @@ const Rounds = () => {
         technology: { id: Number(technologyId) }
       })
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return true;
-      })
-      .then(() => {
-        toast.success("Round created 🚀");
-        fetchRounds();
-        setName("");
-        setRoundNumber("");
-        setBatchId("");
-        setTechnologyId("");
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Round created 🚀");
+      fetchRounds();
+      setName("");
+      setRoundNumber("");
+      setBatchId("");
+      setTechnologyId("");
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // EDIT
@@ -111,16 +114,19 @@ const Rounds = () => {
         technology: { id: Number(editData.technologyId) }
       })
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return true;
-      })
-      .then(() => {
-        toast.success("Updated ✅");
-        setEditData(null);
-        fetchRounds();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Updated ✅");
+      setEditData(null);
+      fetchRounds();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   // DEACTIVATE
@@ -129,12 +135,18 @@ const Rounds = () => {
       method: "PUT",
       headers
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        toast.success("Deactivated ⚡");
-        fetchRounds();
-      })
-      .catch(() => toast.error("Failed ❌"));
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Deactivated ⚡");
+      fetchRounds();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   return (
@@ -182,8 +194,8 @@ const Rounds = () => {
               <td>{i + 1}</td>
               <td>{r.name}</td>
               <td>{r.roundNumber}</td>
-              <td>{r.batch?.name}</td>
-              <td>{r.technology?.name}</td>
+              <td>{r.batch?.name || "N/A"}</td>
+              <td>{r.technology?.name || "N/A"}</td>
 
               <td>
                 <div className="action-buttons">

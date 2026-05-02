@@ -3,14 +3,16 @@ import axios from "axios";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import Particles from "react-tsparticles";
-import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import "./Login.css";
 
 const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
+  const [showForgot, setShowForgot] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -21,15 +23,19 @@ const Login = () => {
         password
       });
 
+      console.log("Login Response:", res.data); // 🔍 debug
+
+      // 🔥 SAVE ALL DATA
       localStorage.setItem("token", res.data.token);
+      localStorage.setItem("userId", res.data.userId);
+      localStorage.setItem("role", res.data.role);
+      localStorage.setItem("email", res.data.email);
 
-      window.location.reload();
-
-      // 🔥 REDIRECT HERE
-      navigate("/");
+      // 🔥 ALWAYS GO TO DASHBOARD (your App.js handles auth)
+      window.location.href = "/"; // force reload to reset state
 
     } catch {
-      alert("Invalid Credentials ❌");
+      toast.error("Invalid Credentials ❌");
     }
   };
 
@@ -51,6 +57,29 @@ const Login = () => {
       window.removeEventListener("mousemove", moveGlow);
     };
   }, []);
+
+  const handleForgotPassword = async () => {
+    if (!resetEmail) {
+      toast.error("Enter email");
+      return;
+    }
+
+    try {
+      setLoading(true);
+
+      await axios.post("http://localhost:8080/auth/forgot-password", {
+        email: resetEmail
+      });
+
+      toast.success("Reset link sent 📩");
+      setShowForgot(false);
+
+    } catch {
+      toast.error("Email not found ❌");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="login-container">
@@ -115,11 +144,11 @@ const Login = () => {
             <button type="submit">Login →</button>
 
             <button 
-                type="button" 
-                className="forgot"
-                onClick={() => alert("Forgot Password Clicked")}
-                >
-                Forgot Password?
+              type="button" 
+              className="forgot"
+              onClick={() => setShowForgot(true)}
+            >
+              Forgot Password?
             </button>
 
           </form>
@@ -127,6 +156,44 @@ const Login = () => {
         </motion.div>
 
       </Tilt>
+
+      {showForgot && (
+        <div className="forgot-modal">
+          <div className="forgot-card">
+
+            <h2 className="title">Reset Password</h2>
+
+            <p className="subtitle">
+              Enter your registered email and we’ll send you a secure reset link.
+            </p>
+
+            <div className="input-group">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+              />
+            </div>
+
+            <button 
+              className="primary-btn"
+              onClick={handleForgotPassword}
+              disabled={loading}
+            >
+              {loading ? "Sending..." : "Send Reset Link →"}
+            </button>
+
+            <button 
+              className="secondary-btn"
+              onClick={() => setShowForgot(false)}
+            >
+              Cancel
+            </button>
+
+          </div>
+        </div>
+      )}
 
     </div>
   );

@@ -61,20 +61,21 @@ const Users = () => {
         role: "EVALUATOR" // 🔥 FIXED ROLE
       })
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return res.json();
-      })
-      .then(() => {
-        toast.success("Evaluator created successfully 🚀");
-        fetchUsers();
-        setName("");
-        setEmail("");
-        setPassword("");
-      })
-      .catch(() => {
-        toast.error("Failed to create evaluator ❌");
-      });
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Evaluator created 🚀");
+      fetchUsers();
+      setName("");
+      setEmail("");
+      setPassword("");
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   const openEdit = (user) => {
@@ -112,21 +113,19 @@ const Users = () => {
         ...(editUser.password ? { password: editUser.password } : {})
       })
     })
-      .then(async res => {
-        if (!res.ok) {
-          const text = await res.text(); // 🔥 get backend message
-          throw new Error(text || "Update failed");
-        }
-        return res.json();
-      })
-      .then(() => {
-        toast.success("Evaluator updated successfully ✅");
-        setShowModal(false);
-        fetchUsers();
-      })
-      .catch((err) => {
-        toast.error(err.message || "Update failed ❌");
-      });
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Update failed ❌");
+      }
+
+      toast.success("Evaluator updated successfully ✅");
+      setShowModal(false);
+      fetchUsers();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   const confirmDeactivate = () => {
@@ -134,18 +133,19 @@ const Users = () => {
       method: "PUT",
       headers
     })
-      .then(res => {
-        if (!res.ok) throw new Error();
-        return res.text();
-      })
-      .then(() => {
-        toast.success("Evaluator deactivated ⚡");
-        setConfirmOpen(false);
-        fetchUsers();
-      })
-      .catch(() => {
-        toast.error("Failed to deactivate ❌");
-      });
+      .then(async (res) => {
+      let data = null;
+      try { data = await res.json(); } catch {}
+
+      if (!res.ok) {
+        throw new Error(data?.message || "Failed ❌");
+      }
+
+      toast.success("Evaluator deactivated ⚡");
+      setConfirmOpen(false);
+      fetchUsers();
+    })
+    .catch((err) => toast.error(err.message));
   };
 
   const filteredUsers = users.filter(user =>

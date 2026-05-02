@@ -1,0 +1,24 @@
+.history-filters {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.history-filters input,
+.history-filters select {
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  background: #0f172a;
+  color: #cbd5f5;
+}
+
+.history-table-wrapper {
+  max-height: 60vh;
+  overflow-y: auto;
+  border-radius: 10px;
+}
+
+.history-table-wrapper table {
+  width: 100%;
+}
