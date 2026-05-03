@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "./AdminDashboard.css";
 import {
   BarChart, Bar, XAxis, YAxis, Tooltip,
@@ -11,6 +12,7 @@ const AdminDashboard = () => {
   const [data, setData] = useState([]);
   const [assignments, setAssignments] = useState([]);
   const [selectedBatch, setSelectedBatch] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -247,6 +249,20 @@ const AdminDashboard = () => {
           </tbody>
         </table>
       </div>
+
+      {(localStorage.getItem("role") === "ADMIN" || 
+        localStorage.getItem("role") === "SUPER_ADMIN") && (
+
+        <motion.div 
+          className="admin-card create-admin-card"
+          whileHover={{ scale: 1.05 }}
+          onClick={() => navigate("/create-admin")}
+        >
+          <h4>⚡ Create Admin</h4>
+          <p>Securely add new admin</p>
+        </motion.div>
+
+      )}
 
     </div>
   );

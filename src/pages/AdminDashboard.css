@@ -125,3 +125,16 @@
 .leaderboard-table tr:hover {
   background: rgba(255,255,255,0.05);
 }
+
+.create-admin-card {
+  cursor: pointer;
+  border: 1px solid rgba(59,130,246,0.4);
+  transition: all 0.3s ease;
+  margin-top: 30px;
+  padding: 20px;
+}
+
+.create-admin-card:hover {
+  background: rgba(59,130,246,0.15);
+  box-shadow: 0 10px 25px rgba(59,130,246,0.3);
+}

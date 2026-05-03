@@ -1,0 +1,119 @@
+.ca-container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.ca-card {
+  width: 380px;
+  padding: 30px;
+  border-radius: 18px;
+
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+
+  text-align: center;
+}
+
+/* TITLE */
+.ca-title {
+  margin-bottom: 10px;
+}
+
+/* STEP */
+.ca-steps {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 20px;
+}
+
+/* MODE */
+.ca-mode {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ca-mode-btn {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent;
+  color: white;
+  cursor: pointer;
+}
+
+.ca-mode-btn.active {
+  background: #3b82f6;
+}
+
+/* INPUT */
+.ca-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background: #1e293b;
+  color: white;
+}
+
+/* INFO */
+.ca-info {
+  font-size: 13px;
+  opacity: 0.6;
+  margin-bottom: 10px;
+}
+
+/* BUTTON */
+.ca-btn {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: none;
+
+  background: linear-gradient(135deg, #3b82f6, #a855f7);
+  color: white;
+  cursor: pointer;
+}
+
+/* OTP */
+.ca-otp-container {
+  display: flex;
+  justify-content: center;  /* 🔥 FIX CENTER */
+  gap: 10px;
+  margin: 15px 0;
+}
+
+.ca-otp-input {
+  width: 45px;
+  height: 50px;
+
+  text-align: center;
+  font-size: 20px;
+
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.1);
+
+  background: #0f172a;
+  color: white;
+}
+
+/* SUCCESS */
+.ca-success {
+  margin-top: 20px;
+  color: #22c55e;
+}
+
+/* SUBTEXT */
+.ca-sub {
+  font-size: 13px;
+  opacity: 0.7;
+}

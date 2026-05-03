@@ -15,11 +15,19 @@ import EvaluatorHistory from "./pages/EvaluatorHistory";
 import AdminDashboard from "./pages/AdminDashboard";
 import EvaluatorDashboard from "./pages/EvaluatorDashboard";
 import { Toaster } from "react-hot-toast";
+import CreateAdmin from "./pages/CreateAdmin";
 import ResetPassword from "./pages/ResetPassword";
+import ForceResetPassword from "./pages/ForceResetPassword";
 
 
 function App() {
   const token = localStorage.getItem("token");
+  const mustChange = localStorage.getItem("mustChangePassword") === "true";
+
+  // 🔥 FORCE RESET REDIRECT (VERY IMPORTANT)
+  if (token && mustChange && window.location.pathname !== "/force-reset-password") {
+    return <Navigate to="/force-reset-password" />;
+  }
 
   return (
     <BrowserRouter>
@@ -56,6 +64,8 @@ function App() {
           <Route path="my-evaluations" element={<EvaluatorDashboard />} />
           <Route path="my-evaluation-history" element={<EvaluatorHistory />} />
           <Route path="admin-dashboard" element={<AdminDashboard />} />
+          <Route path="create-admin" element={<CreateAdmin />} />
+          <Route path="force-reset-password" element={<ForceResetPassword />} />
         </Route>
 
         {/* 🔥 DEFAULT REDIRECT */}

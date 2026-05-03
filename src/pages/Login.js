@@ -30,9 +30,14 @@ const Login = () => {
       localStorage.setItem("userId", res.data.userId);
       localStorage.setItem("role", res.data.role);
       localStorage.setItem("email", res.data.email);
+      localStorage.setItem("mustChangePassword", res.data.mustChangePassword);
 
       // 🔥 ALWAYS GO TO DASHBOARD (your App.js handles auth)
-      window.location.href = "/"; // force reload to reset state
+      if (res.data.mustChangePassword) {
+        window.location.href = "/force-reset-password";
+      } else {
+        window.location.href = "/";
+      }
 
     } catch {
       toast.error("Invalid Credentials ❌");
