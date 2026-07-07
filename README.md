@@ -1,70 +1,306 @@
-# Getting Started with Create React App
+# 🎯 MockEval Frontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A modern, responsive React-based frontend for the **MockEval - Mock Evaluation Management System**. This application provides an intuitive interface for managing mock interviews, evaluations, assignments, participants, batches, technologies, and analytics with role-based access for Administrators and Evaluators.
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## 📌 Overview
 
-### `npm start`
+MockEval is designed to simplify and automate the complete mock evaluation lifecycle in training institutes and organizations.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+The frontend provides:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Secure Login & JWT Authentication
+- Admin Dashboard with Analytics
+- Evaluator Dashboard
+- Participant Management
+- Batch Management
+- Technology Management
+- Round Management
+- Assignment Management
+- Evaluation Management
+- Reports & Analytics
+- PDF Report Generation
+- Responsive Modern UI
 
-### `npm test`
+---
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## 🚀 Features
 
-### `npm run build`
+### 🔐 Authentication
+- JWT Based Authentication
+- Role-Based Access Control
+- Secure Route Protection
+- Automatic Logout on Token Expiry
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+---
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### 👨‍💼 Admin Module
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+- Dashboard Analytics
+- Manage Evaluators
+- Manage Participants
+- Manage Batches
+- Manage Technologies
+- Manage Evaluation Rounds
+- Assign Evaluations
+- Manage Assignments
+- View Evaluation Reports
+- Download Reports as PDF
 
-### `npm run eject`
+---
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### 👨‍🏫 Evaluator Module
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- View Assigned Candidates
+- Submit Evaluations
+- AI Assisted Feedback
+- Evaluation History
+- Performance Tracking
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+---
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+### 📊 Dashboard
 
-## Learn More
+Modern analytics dashboard including:
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+- Total Participants
+- Total Evaluators
+- Total Evaluations
+- Average Score
+- Weak Candidates Count
+- Assignment Status
+- Batch Performance
+- Technology Performance
+- Score Distribution
+- Leaderboard
+- Performance Analytics
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+---
 
-### Code Splitting
+### 📄 Reports
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+- Search Candidates
+- Batch Filter
+- Technology Filter
+- Round Filter
+- Real-Time Filtering
+- Export PDF Reports
+- Summary Statistics
 
-### Analyzing the Bundle Size
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 🎨 User Interface
 
-### Making a Progressive Web App
+- Dark Modern Theme
+- Responsive Layout
+- Glassmorphism Cards
+- Gradient Buttons
+- Interactive Charts
+- Animated Components
+- Mobile Friendly Design
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+---
 
-### Advanced Configuration
+## 🛠️ Tech Stack
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+| Technology | Usage |
+|------------|-------|
+| React.js | Frontend Framework |
+| React Router DOM | Routing |
+| Bootstrap | UI Components |
+| CSS3 | Custom Styling |
+| Recharts | Dashboard Charts |
+| React Icons | Icons |
+| jsPDF | PDF Generation |
+| HTML5 | Structure |
+| JavaScript (ES6+) | Programming |
 
-### Deployment
+---
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+## 📁 Project Structure
 
-### `npm run build` fails to minify
+```
+src/
+│
+├── components/
+│
+├── pages/
+│   ├── Login
+│   ├── Dashboard
+│   ├── AdminDashboard
+│   ├── Users
+│   ├── Participants
+│   ├── Batch
+│   ├── Technology
+│   ├── Rounds
+│   ├── Assignments
+│   ├── Evaluations
+│   ├── Reports
+│   └── Evaluator Modules
+│
+├── App.js
+├── index.js
+└── styles
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## ⚙️ Installation
+
+### Clone Repository
+
+```bash
+git clone https://github.com/your-username/mockeval-frontend.git
+```
+
+---
+
+### Navigate
+
+```bash
+cd mockeval-frontend
+```
+
+---
+
+### Install Dependencies
+
+```bash
+npm install
+```
+
+---
+
+### Start Application
+
+```bash
+npm start
+```
+
+Application will start on:
+
+```
+http://localhost:3000
+```
+
+---
+
+## 🔗 Backend Configuration
+
+Make sure the Spring Boot backend is running.
+
+Default Backend URL:
+
+```
+http://localhost:8080
+```
+
+Update API URLs if required.
+
+---
+
+## 📊 Dashboard Modules
+
+### Analytics
+
+- Total Participants
+- Total Evaluators
+- Total Evaluations
+- Average Performance
+- Weak Candidates
+- Assignment Status
+- Leaderboard
+
+### Charts
+
+- Batch Performance
+- Technology Performance
+- Score Distribution
+- Overall Performance
+
+---
+
+## 📑 Reports Module
+
+Supports:
+
+- Candidate Search
+- Batch Filter
+- Technology Filter
+- Round Filter
+- PDF Export
+- Summary Statistics
+
+---
+
+## 🔒 Authentication
+
+The application uses JWT Authentication.
+
+After successful login:
+
+- Token stored in Local Storage
+- Protected Routes
+- Automatic Authorization Header
+- Role Based Navigation
+
+---
+
+## 📱 Responsive Design
+
+Fully responsive across:
+
+- Desktop
+- Laptop
+- Tablet
+- Mobile
+
+---
+
+## 📈 Future Enhancements
+
+- Email Notifications
+- Live Dashboard Updates
+- AI Performance Insights
+- Candidate Comparison
+- CSV & Excel Export
+- Advanced Analytics
+- Notification Center
+- Theme Customization
+
+---
+
+## 👨‍💻 Developed By
+
+**Pritish Ramesh Pawar**
+
+Java Full Stack Developer
+
+- Java
+- Spring Boot
+- React.js
+- MySQL
+- Hibernate
+- JWT Authentication
+- REST APIs
+
+GitHub:
+https://github.com/pritish9156
+
+LinkedIn:
+https://linkedin.com/in/pritishpawar
+
+---
+
+## 📄 License
+
+This project is developed for educational, internship, and demonstration purposes.
+
+---
+
+## ⭐ Support
+
+If you found this project helpful, consider giving it a ⭐ on GitHub.
+
+Contributions, suggestions, and feedback are always welcome.
